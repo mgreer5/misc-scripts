@@ -1,23 +1,27 @@
 #!/usr/bin/env python
+import sys
+import argparse
 from random import randint
 
-MASTER_CODE = "0017"
+
 NUM_OF_CODES = 10
 
-"""
-Function to produce coupon codes based on a master code
 
-Args:
-    master_code: (str): master code to use for generation
-    coupon_count: (int): number of coupon codes to generate
+def fifteen_off(master_code, coupon_count=1):
+    """
+    Function to produce coupon codes based on a master code
 
-Returns:
-    console print output of coupon codes
-"""
-def fifteen_off(master_code="0001", coupon_count=1):
+    Args:
+        master_code: (str): master code to use for generation
+        coupon_count: (int): number of coupon codes to generate
+
+    Returns:
+        console print output of coupon codes
+    """
     for x in range(coupon_count):
         i = randint(0, 50000)
-        add_check_digit("47000" + "%05d" % i + master_code)
+        add_check_digit("47000" + "%05d" % i + str(master_code))
+
 
 def add_check_digit(id_without_check_digit):
     check_digit = 0
@@ -30,5 +34,37 @@ def add_check_digit(id_without_check_digit):
             
     print(str(id_without_check_digit) + str((10 - (check_digit % 10)) % 10))
 
+
+def parse_args(args):
+    """
+    :param args: arguments passed from the command line.
+    :return: return parser object
+    """
+    parser = argparse.ArgumentParser(description="Lowe's Coupon Generator")
+    parser.add_argument("mastercode", help="[mastercode]")
+    return parser.parse_args(args)
+
+
+def main():
+    """
+    main entry point for commandline application
+    """
+    try:
+        parser = parse_args(sys.argv[1:])
+    except SystemExit:
+        sys.exit(1)
+
+    if not parser.mastercode:
+        print "mastercode is not provided."
+        sys.exit(1)
+
+    try:
+        master_code = int(parser.mastercode)
+    except ValueError:
+        print "\"%s\" is not a valid input.\nPlease input 4 numeric digits\n" % parser.mastercode
+        sys.exit(1)
+
+    fifteen_off(master_code, NUM_OF_CODES)
+
 if __name__ == '__main__':
-    fifteen_off(MASTER_CODE, NUM_OF_CODES)
+    main()
