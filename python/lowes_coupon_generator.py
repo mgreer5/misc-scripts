@@ -18,6 +18,8 @@ def fifteen_off(master_code, coupon_count=1):
     Returns:
         console print output of coupon codes
     """
+    master_code = '{0:04d}'.format(master_code)
+    print(master_code)
     for x in range(coupon_count):
         i = randint(0, 50000)
         add_check_digit("47000" + "%05d" % i + str(master_code))
