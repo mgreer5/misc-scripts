@@ -3,6 +3,15 @@ import sys
 import argparse
 from random import randint
 
+############################################################################
+#
+#   Find master codes at:
+#   https://slickdeals.net/f/9549456-lowe-s-10-15-50-off-online-coupons-sharing-only-no-off-topic
+#   
+#   Or google "lowes coupon master {month} {year}"
+#   Example: lowes coupon master may 2018
+#
+############################################################################
 
 NUM_OF_CODES = 10
 
